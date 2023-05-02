@@ -1,0 +1,81 @@
+.meals {
+  display: block;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 2rem;
+}
+.card-body {
+  display: flex;
+  align-items: self-end;
+  justify-content: space-between;
+}
+
+.card-title,
+#like-btn {
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid {
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  /* max-width: 1280px; */
+  padding: 2rem;
+}
+
+.fav-meal-img,
+.fav-meal-name {
+  margin: 0;
+  padding: 0;
+}
+
+.fav {
+  /* display: flex; */
+  flex-wrap: wrap;
+  justify-content: center;
+  /* margin: 0 auto; */
+  max-width: 1280px;
+  padding: 2rem;
+}
+
+.fav-meal-img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.fav-meal-name {
+  color: aliceblue;
+  max-width: min-content;
+}
+
+.fav-meal-name:hover {
+  color: #5a5d9a;
+}
+
+.search-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
+  /* margin: 0 auto; */
+  /* max-width: 1280px; */
+  padding: 2rem;
+}
+
+#search-btn {
+  margin-right: 2rem;
+}
+
+#search-input {
+  display: flex;
+  max-width: max-content;
+}
+
+li {
+  cursor: pointer;
+}
