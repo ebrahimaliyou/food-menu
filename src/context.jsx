@@ -8,12 +8,14 @@ const randomMealUrl = "https://www.themealdb.com/api/json/v1/1/random.php";
 
 const fetchMealsByName = async (name) => {
   try {
-    const { data } = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+    const { data } = await axios.get(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
+    );
     return data.meals;
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 const fetchMeals = async (url) => {
   try {
@@ -42,7 +44,7 @@ const fetchRandomMeal = async (url) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 const meals = await fetchMeals(allMealsUrl);
 
 const AppProvider = ({ children }) => {
@@ -51,6 +53,17 @@ const AppProvider = ({ children }) => {
   const [favoriteMeals, setFavorite] = useState(localFavoriteMeals); // --> [{meal1}, {meal2}]
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [modalMeal , setModalMeal] = useState({});
+
+  // modal state
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (mealId) => {
+    const meal = Meals.find((meal) => parseInt(meal.idMeal) === parseInt(mealId));
+    setModalMeal(meal);
+    setShow(true);
+  };
 
   useEffect(() => {
     setMeals(meals);
@@ -62,14 +75,15 @@ const AppProvider = ({ children }) => {
 
   const handleLikeButton = async (event) => {
     const mealId = parseInt(event.currentTarget.value);
-    
-    for(const i in favoriteMeals){
-      if(parseInt(favoriteMeals[i].idMeal) === mealId){
-        const newfavoriteMeals = favoriteMeals.filter((meal) => parseInt(meal.idMeal) !== mealId);
+
+    for (const i in favoriteMeals) {
+      if (parseInt(favoriteMeals[i].idMeal) === mealId) {
+        const newfavoriteMeals = favoriteMeals.filter(
+          (meal) => parseInt(meal.idMeal) !== mealId
+        );
         setFavorite(newfavoriteMeals);
         return;
-      }
-      else {
+      } else {
         continue;
       }
     }
@@ -81,15 +95,15 @@ const AppProvider = ({ children }) => {
   const handleSurpriseMeBtn = async () => {
     const meal = await fetchRandomMeal(randomMealUrl);
     setMeals([meal]);
-  }
+  };
 
   const handleSearchBtn = () => {
     setMeals(searchResults);
     setSearchResults([]);
-  }
+  };
 
-  const handleInputChange = async(event) => {
-    if(event.target.value === "") {
+  const handleInputChange = async (event) => {
+    if (event.target.value === "") {
       setSearchResults([]);
       return;
     }
@@ -102,15 +116,31 @@ const AppProvider = ({ children }) => {
   };
 
   const handleSelectResult = (mealId) => {
-    const result = searchResults.find((meal) => parseInt(meal.idMeal) === parseInt(mealId));
+    const result = searchResults.find(
+      (meal) => parseInt(meal.idMeal) === parseInt(mealId)
+    );
     setSearchTerm(result);
     setSearchResults([]);
     setMeals([result]);
   };
 
-  
   return (
-    <AppContext.Provider value={{ Meals, favoriteMeals,searchResults, handleInputChange, handleSelectResult, handleLikeButton , handleSurpriseMeBtn, handleSearchBtn}}>
+    <AppContext.Provider
+      value={{
+        show,
+        Meals,
+        favoriteMeals,
+        searchResults,
+        modalMeal,
+        handleClose,
+        handleShow,
+        handleInputChange,
+        handleSelectResult,
+        handleLikeButton,
+        handleSurpriseMeBtn,
+        handleSearchBtn,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

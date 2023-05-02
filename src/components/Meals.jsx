@@ -3,7 +3,7 @@ import "../App.css";
 import { ArrowRight, Camera, ThumbUpOffAlt, ThumbUp } from "@mui/icons-material";
 
 const Meals = () => {
-  const {Meals, favoriteMeals, handleLikeButton}= useGlobalContext();
+  const {Meals, favoriteMeals, handleLikeButton, handleShow}= useGlobalContext();
   /**
    * idMeal: "52959"
    * strMeal: "Apple & Blackberry Crumble"
@@ -14,7 +14,7 @@ const Meals = () => {
       <div className="row">
         {Meals.map((meal) => (
           <div className="col" key={meal.idMeal}>
-            <div className="card">
+            <div className="card" onClick={() =>handleShow(meal.idMeal)}>
               <img src={meal.strMealThumb} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{meal.strMeal}</h5>
