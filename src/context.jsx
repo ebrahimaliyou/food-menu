@@ -47,14 +47,12 @@ const meals = await fetchMeals(allMealsUrl);
 
 const AppProvider = ({ children }) => {
   const localFavoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals"));
-  console.log(localFavoriteMeals)
   const [Meals, setMeals] = useState([]);
   const [favoriteMeals, setFavorite] = useState(localFavoriteMeals); // --> [{meal1}, {meal2}]
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    // console.log(meals)
     setMeals(meals);
   }, []);
 
@@ -86,8 +84,6 @@ const AppProvider = ({ children }) => {
   }
 
   const handleSearchBtn = () => {
-    console.log("searchTerm");
-    // event.preventDefault();
     setMeals(searchResults);
     setSearchResults([]);
   }
@@ -97,7 +93,6 @@ const AppProvider = ({ children }) => {
       setSearchResults([]);
       return;
     }
-    console.log(event.target.value);
     const value = event.target.value;
     setSearchTerm(value);
 
@@ -107,9 +102,7 @@ const AppProvider = ({ children }) => {
   };
 
   const handleSelectResult = (mealId) => {
-    console.log(mealId);
     const result = searchResults.find((meal) => parseInt(meal.idMeal) === parseInt(mealId));
-    console.log(result);
     setSearchTerm(result);
     setSearchResults([]);
     setMeals([result]);
