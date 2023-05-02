@@ -7,10 +7,6 @@ const MealModal = () => {
   const { modalMeal, show, handleClose, handleShow } = useGlobalContext();
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
